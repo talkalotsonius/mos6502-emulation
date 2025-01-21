@@ -406,7 +406,7 @@ TEST_F(M6502AddSubWithCarryTests, ADCAbsWillSetTheNegativeFlagWhenTheResultIsNeg
 	TestADCAbsolute(Test);
 }
 
-TEST_F(M6502AddSubWithCarryTests, ADCAbsWillSetTheOverflowFlagWhenSignedNegativeAddtionFails) {
+TEST_F(M6502AddSubWithCarryTests, ADCAbsWillSetTheOverflowFlagWhenSignedNegativeAdditionFails) {
 	// A: 10000000 -128
 	// O: 11111111 -1
 	// =: 01111111 127
@@ -425,7 +425,7 @@ TEST_F(M6502AddSubWithCarryTests, ADCAbsWillSetTheOverflowFlagWhenSignedNegative
 }
 
 TEST_F(M6502AddSubWithCarryTests, 
-       ADCAbsWillSetTheOverflowFlagWhenSignedNegativeAddtionPassedDueToInitalCarryFlag){
+       ADCAbsWillSetTheOverflowFlagWhenSignedNegativeAdditionPassedDueToInitalCarryFlag){
 	// C: 00000001
 	// A: 10000000 -128
 	// O: 11111111 -1
@@ -444,7 +444,7 @@ TEST_F(M6502AddSubWithCarryTests,
 	TestADCAbsolute(Test);
 }
 
-TEST_F(M6502AddSubWithCarryTests, ADCAbsWillSetTheOverflowFlagWhenSignedPositiveAddtionFails) {
+TEST_F(M6502AddSubWithCarryTests, ADCAbsWillSetTheOverflowFlagWhenSignedPositiveAdditionFails) {
 	// A: 01111111 127   
 	// O: 00000001 1
 	// =: 10000000 128
@@ -746,7 +746,7 @@ TEST_F(M6502AddSubWithCarryTests, SBCAbsCanSubtractTwoNegativeNumbersAndGetSigne
 	TestSBCAbsolute(Test);
 }
 
-TEST_F(M6502AddSubWithCarryTests, SBCAbsCanSubtractAPostitiveAndNegativeNumbersAndGetSignedOverflow) {
+TEST_F(M6502AddSubWithCarryTests, SBCAbsCanSubtractAPositiveAndNegativeNumbersAndGetSignedOverflow) {
 	ADCTestData Test;
 	Test.Carry = true;
 	Test.A = 127;
@@ -852,7 +852,7 @@ TEST_F(M6502AddSubWithCarryTests, SBCZeroPageCanSubtractTwoNegativeNumbersAndGet
 	TestSBCZeroPage(Test);
 }
 
-TEST_F(M6502AddSubWithCarryTests, SBCZeroPageCanSubtractAPostitiveAndNegativeNumbersAndGetSignedOverflow) {
+TEST_F(M6502AddSubWithCarryTests, SBCZeroPageCanSubtractAPositiveAndNegativeNumbersAndGetSignedOverflow) {
 	ADCTestData Test;
 	Test.Carry = true;
 	Test.A = 127;
@@ -958,7 +958,7 @@ TEST_F(M6502AddSubWithCarryTests, SBCImmediateCanSubtractTwoNegativeNumbersAndGe
 	TestSBCImmediate(Test);
 }
 
-TEST_F(M6502AddSubWithCarryTests, SBCImmediateCanSubtractAPostitiveAndNegativeNumbersAndGetSignedOverflow) {
+TEST_F(M6502AddSubWithCarryTests, SBCImmediateCanSubtractAPositiveAndNegativeNumbersAndGetSignedOverflow) {
 	ADCTestData Test;
 	Test.Carry = true;
 	Test.A = 127;
