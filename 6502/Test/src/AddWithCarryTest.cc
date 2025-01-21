@@ -13,9 +13,9 @@ public:
     virtual void TearDown() {}
 
     void ExpectUnaffectedRegisters(m6502::CPU CPUBefore) {
-        EXPECT_EQ( CPUBefore.Flag.I, cpu.Flag.I );
-        EXPECT_EQ( CPUBefore.Flag.D, cpu.Flag.D );
-        EXPECT_EQ( CPUBefore.Flag.B, cpu.Flag.B );
+        EXPECT_EQ(CPUBefore.Flag.I, cpu.Flag.I);
+        EXPECT_EQ(CPUBefore.Flag.D, cpu.Flag.D);
+        EXPECT_EQ(CPUBefore.Flag.B, cpu.Flag.B);
     }
 
     struct ADCTestData {

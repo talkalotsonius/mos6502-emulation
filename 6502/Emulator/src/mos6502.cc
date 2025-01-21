@@ -4,140 +4,140 @@
 
 m6502::s32 m6502::CPU::Execute(s32 Cycles, Mem &memory) {
 
-	/** Load a Register with the value from the memory address */
-	auto LoadRegister = [&Cycles, &memory, this] (Word Address, Byte &Register) {
-		Register = ReadByte(Cycles, Address, memory);
-		SetZeroAndNegativeFlags( Register );
-	};
+  /** Load a Register with the value from the memory address */
+  auto LoadRegister = [&Cycles, &memory, this] (Word Address, Byte &Register) {
+    Register = ReadByte(Cycles, Address, memory);
+    SetZeroAndNegativeFlags( Register );
+  };
 
-	/** AND the A Register with the value from the memory address */
-	auto And = [&Cycles, &memory, this] (Word Address) {
-		A &= ReadByte(Cycles, Address, memory);
-		SetZeroAndNegativeFlags(A);
-	};
+  /** AND the A Register with the value from the memory address */
+  auto And = [&Cycles, &memory, this] (Word Address) {
+    A &= ReadByte(Cycles, Address, memory);
+    SetZeroAndNegativeFlags(A);
+  };
 
-	/** Or the A Register with the value from the memory address */
-	auto Ora =[&Cycles, &memory, this] (Word Address) {
-		A |= ReadByte(Cycles, Address, memory );
-		SetZeroAndNegativeFlags(A);
-	};
+  /** Or the A Register with the value from the memory address */
+  auto Ora =[&Cycles, &memory, this] (Word Address) {
+    A |= ReadByte(Cycles, Address, memory );
+    SetZeroAndNegativeFlags(A);
+  };
 
-	/** Eor the A Register with the value from the memory address */
-	auto Eor =[&Cycles, &memory, this] (Word Address) {
-		A ^= ReadByte(Cycles, Address, memory);
-		SetZeroAndNegativeFlags(A);
-	};
+  /** Eor the A Register with the value from the memory address */
+  auto Eor =[&Cycles, &memory, this] (Word Address) {
+    A ^= ReadByte(Cycles, Address, memory);
+    SetZeroAndNegativeFlags(A);
+  };
 
-	/* Conditional branch */
-	auto BranchIf = [&Cycles, &memory, this] (bool Test, bool Expected) {
-		SByte Offset = FetchSByte(Cycles, memory);
-		if (Test == Expected) {
-			const Word PCOld = PC;
-			PC += Offset;
-			Cycles--;
+  /* Conditional branch */
+  auto BranchIf = [&Cycles, &memory, this] (bool Test, bool Expected) {
+    SByte Offset = FetchSByte(Cycles, memory);
+    if (Test == Expected) {
+      const Word PCOld = PC;
+      PC += Offset;
+      Cycles--;
 
-			const bool PageChanged = (PC >> 8) != (PCOld >> 8);
-			if (PageChanged) {
-				Cycles--;
-			}
-		}
-	};
+      const bool PageChanged = (PC >> 8) != (PCOld >> 8);
+      if (PageChanged) {
+        Cycles--;
+      }
+    }
+  };
 
-	/** Do add with carry given the the operand */
-	auto ADC = [&Cycles, &memory, this] (Byte Operand) {
-		ASSERT( Flag.D == false, "haven't handled decimal mode!" );
-		const bool AreSignBitsTheSame =! ((A ^ Operand) & NegativeFlagBit);
-		Word Sum = A;
+  /** Do add with carry given the the operand */
+  auto ADC = [&Cycles, &memory, this] (Byte Operand) {
+    ASSERT( Flag.D == false, "haven't handled decimal mode!" );
+    const bool AreSignBitsTheSame =! ((A ^ Operand) & NegativeFlagBit);
+    Word Sum = A;
 
-		Sum += Operand;
-		Sum += Flag.C;
-		A = (Sum & 0xFF);
-		SetZeroAndNegativeFlags(A);
-		Flag.C = Sum > 0xFF;
-		Flag.V = AreSignBitsTheSame && ((A ^ Operand) & NegativeFlagBit);
-	};
+    Sum += Operand;
+    Sum += Flag.C;
+    A = (Sum & 0xFF);
+    SetZeroAndNegativeFlags(A);
+    Flag.C = Sum > 0xFF;
+    Flag.V = AreSignBitsTheSame && ((A ^ Operand) & NegativeFlagBit);
+  };
 
-	/** Do subtract with carry given the the operand */
-	auto SBC = [&ADC] (Byte Operand) {
-		ADC( ~Operand );
-	};
+  /** Do subtract with carry given the the operand */
+  auto SBC = [&ADC] (Byte Operand) {
+    ADC( ~Operand );
+  };
 
-	/** Sets the processor status for a CMP/CPX/CPY instruction */
-	auto RegisterCompare = [&Cycles, &memory, this] (Byte Operand, Byte RegisterValue) {
-		Byte Temp = RegisterValue - Operand;
-		Flag.N = (Temp & NegativeFlagBit) > 0;
-		Flag.Z = RegisterValue == Operand;
-		Flag.C = RegisterValue >= Operand;
-	};
+  /** Sets the processor status for a CMP/CPX/CPY instruction */
+  auto RegisterCompare = [&Cycles, &memory, this] (Byte Operand, Byte RegisterValue) {
+    Byte Temp = RegisterValue - Operand;
+    Flag.N = (Temp & NegativeFlagBit) > 0;
+    Flag.Z = RegisterValue == Operand;
+    Flag.C = RegisterValue >= Operand;
+  };
 
-	/** Arithmetic shift left */
-	auto ASL = [&Cycles, this] (Byte Operand) -> Byte {
-		Flag.C = (Operand & NegativeFlagBit) > 0;
-		Byte Result = Operand << 1;
-		SetZeroAndNegativeFlags(Result);
-		Cycles--;
+  /** Arithmetic shift left */
+  auto ASL = [&Cycles, this] (Byte Operand) -> Byte {
+    Flag.C = (Operand & NegativeFlagBit) > 0;
+    Byte Result = Operand << 1;
+    SetZeroAndNegativeFlags(Result);
+    Cycles--;
 
-		return Result;
-	};
+    return Result;
+  };
 
-	/** Logical shift right */
-	auto LSR = [&Cycles, this](Byte Operand) -> Byte {
-		Flag.C = (Operand & ZeroBit) > 0;
-		Byte Result = Operand >> 1;
-		SetZeroAndNegativeFlags(Result);
-		Cycles--;
+  /** Logical shift right */
+  auto LSR = [&Cycles, this](Byte Operand) -> Byte {
+    Flag.C = (Operand & ZeroBit) > 0;
+    Byte Result = Operand >> 1;
+    SetZeroAndNegativeFlags(Result);
+    Cycles--;
 
-		return Result;
-	};
+    return Result;
+  };
 
-	/** Rotate left */
-	auto ROL = [&Cycles, this] (Byte Operand) -> Byte {
-		Byte NewBit0 = Flag.C ? ZeroBit : 0;
-		Flag.C = (Operand & NegativeFlagBit) > 0;
-		Operand = Operand << 1;
-		Operand |= NewBit0;
-		SetZeroAndNegativeFlags(Operand);
-		Cycles--;
+  /** Rotate left */
+  auto ROL = [&Cycles, this] (Byte Operand) -> Byte {
+    Byte NewBit0 = Flag.C ? ZeroBit : 0;
+    Flag.C = (Operand & NegativeFlagBit) > 0;
+    Operand = Operand << 1;
+    Operand |= NewBit0;
+    SetZeroAndNegativeFlags(Operand);
+    Cycles--;
 
-		return Operand;
-	};
+    return Operand;
+  };
 
-	/** Rotate right */
-	auto ROR = [&Cycles, this] (Byte Operand) -> Byte {
-		bool OldBit0 = (Operand & ZeroBit) > 0;
-		Operand = Operand >> 1;
-		if (Flag.C) {
-			Operand |= NegativeFlagBit;
-		}
-		Cycles--;
-		Flag.C = OldBit0;
-		SetZeroAndNegativeFlags(Operand);
+  /** Rotate right */
+  auto ROR = [&Cycles, this] (Byte Operand) -> Byte {
+    bool OldBit0 = (Operand & ZeroBit) > 0;
+    Operand = Operand >> 1;
+    if (Flag.C) {
+      Operand |= NegativeFlagBit;
+    }
+    Cycles--;
+    Flag.C = OldBit0;
+    SetZeroAndNegativeFlags(Operand);
 
-		return Operand;
-	};
+    return Operand;
+  };
 
-	/** Push Processor status onto the stack
-	*	Setting bits 4 & 5 on the stack */
-	auto PushPSToStack = [&Cycles, &memory, this] () {
-		Byte PSStack = PS | BreakFlagBit | UnusedFlagBit;		
-		PushByteOntoStack(Cycles, PSStack, memory);
-	};
+  /** Push Processor status onto the stack
+  *	Setting bits 4 & 5 on the stack */
+  auto PushPSToStack = [&Cycles, &memory, this] () {
+    Byte PSStack = PS | BreakFlagBit | UnusedFlagBit;		
+    PushByteOntoStack(Cycles, PSStack, memory);
+  };
 
-	/** Pop Processor status from the stack
-	*	Clearing bits 4 & 5 (Break & Unused) */
-	auto PopPSFromStack = [&Cycles, &memory, this] () {
-		PS = PopByteFromStack(Cycles, memory);
-		Flag.B = false;
-		Flag.Unused = false;
-	};
+  /** Pop Processor status from the stack
+  *	Clearing bits 4 & 5 (Break & Unused) */
+  auto PopPSFromStack = [&Cycles, &memory, this] () {
+    PS = PopByteFromStack(Cycles, memory);
+    Flag.B = false;
+    Flag.Unused = false;
+  };
 
-	const s32 CyclesRequested = Cycles;
-	while (Cycles > 0) {
-		Byte Ins = FetchByte(Cycles, memory);
-		switch (Ins) {
+  const s32 CyclesRequested = Cycles;
+  while (Cycles > 0) {
+    Byte Ins = FetchByte(Cycles, memory);
+    switch (Ins) {
       case INS_AND_IM: {
         A &= FetchByte(Cycles, memory);
-			  SetZeroAndNegativeFlags(A);
+        SetZeroAndNegativeFlags(A);
       } break;
 
       case INS_ORA_IM: {
@@ -146,19 +146,19 @@ m6502::s32 m6502::CPU::Execute(s32 Cycles, Mem &memory) {
       } break;
 
       case INS_EOR_IM: {
-			  A ^= FetchByte(Cycles, memory);
-			  SetZeroAndNegativeFlags(A);
-		  } break;
+        A ^= FetchByte(Cycles, memory);
+        SetZeroAndNegativeFlags(A);
+      } break;
 
-		  case INS_AND_ZP: {
-			  Word Address = AddrZeroPage(Cycles, memory);
-			  And(Address);
-		  } break;
+      case INS_AND_ZP: {
+        Word Address = AddrZeroPage(Cycles, memory);
+        And(Address);
+      } break;
 
-		  case INS_ORA_ZP: {
+      case INS_ORA_ZP: {
         Word Address = AddrZeroPage(Cycles, memory);
         Ora(Address);
-		  } break;
+      } break;
 
       case INS_EOR_ZP: {
         Word Address = AddrZeroPage(Cycles, memory);
@@ -439,14 +439,14 @@ m6502::s32 m6502::CPU::Execute(s32 Cycles, Mem &memory) {
         Cycles -= 2;
       } break;
 
-		//TODO:
-		//An original 6502 has does not correctly fetch the target 
-		//address if the indirect vector falls on a page boundary
-		//( e.g.$xxFF where xx is any value from $00 to $FF ).
-		//In this case fetches the LSB from $xxFF as expected but 
-		//takes the MSB from $xx00.This is fixed in some later chips 
-		//like the 65SC02 so for compatibility always ensure the 
-		//indirect vector is not at the end of the page.
+    //TODO:
+    //An original 6502 has does not correctly fetch the target 
+    //address if the indirect vector falls on a page boundary
+    //( e.g.$xxFF where xx is any value from $00 to $FF ).
+    //In this case fetches the LSB from $xxFF as expected but 
+    //takes the MSB from $xx00.This is fixed in some later chips 
+    //like the 65SC02 so for compatibility always ensure the 
+    //indirect vector is not at the end of the page.
       case INS_JMP_ABS:	{
         Word Address = AddrAbsolute(Cycles, memory);
         PC = Address;
@@ -1001,130 +1001,130 @@ m6502::s32 m6502::CPU::Execute(s32 Cycles, Mem &memory) {
         throw - 1;
       } break;
 
-		}
-	}
+    }
+  }
 
-	const s32 NumCyclesUsed = CyclesRequested - Cycles;
+  const s32 NumCyclesUsed = CyclesRequested - Cycles;
 
-	return NumCyclesUsed;
+  return NumCyclesUsed;
 }
 
 
 m6502::Word m6502::CPU::AddrZeroPage(s32 &Cycles, const Mem &memory) {
-	Byte ZeroPageAddr = FetchByte(Cycles, memory);
+  Byte ZeroPageAddr = FetchByte(Cycles, memory);
 
-	return ZeroPageAddr;
+  return ZeroPageAddr;
 }
 
 m6502::Word m6502::CPU::AddrZeroPageX(s32 &Cycles, const Mem &memory) {
-	Byte ZeroPageAddr = FetchByte(Cycles, memory);
-	ZeroPageAddr += X;
-	Cycles--;
+  Byte ZeroPageAddr = FetchByte(Cycles, memory);
+  ZeroPageAddr += X;
+  Cycles--;
 
-	return ZeroPageAddr;
+  return ZeroPageAddr;
 }
 
 m6502::Word m6502::CPU::AddrZeroPageY(s32 &Cycles, const Mem &memory) {
-	Byte ZeroPageAddr = FetchByte(Cycles, memory);
-	ZeroPageAddr += Y;
-	Cycles--;
+  Byte ZeroPageAddr = FetchByte(Cycles, memory);
+  ZeroPageAddr += Y;
+  Cycles--;
 
-	return ZeroPageAddr;
+  return ZeroPageAddr;
 }
 
 m6502::Word m6502::CPU::AddrAbsolute(s32 &Cycles, const Mem &memory) {
-	Word AbsAddress = FetchWord(Cycles, memory);
+  Word AbsAddress = FetchWord(Cycles, memory);
 
-	return AbsAddress;
+  return AbsAddress;
 }
 
 m6502::Word m6502::CPU::AddrAbsoluteX(s32 &Cycles, const Mem &memory) {
-	Word AbsAddress = FetchWord(Cycles, memory);
-	Word AbsAddressX = AbsAddress + X;
-	const bool CrossedPageBoundary = (AbsAddress ^ AbsAddressX) >> 8;
-	if (CrossedPageBoundary) {
-		Cycles--;
-	}
+  Word AbsAddress = FetchWord(Cycles, memory);
+  Word AbsAddressX = AbsAddress + X;
+  const bool CrossedPageBoundary = (AbsAddress ^ AbsAddressX) >> 8;
+  if (CrossedPageBoundary) {
+    Cycles--;
+  }
 
-	return AbsAddressX;
+  return AbsAddressX;
 }
 
 m6502::Word m6502::CPU::AddrAbsoluteX_5(s32 &Cycles, const Mem &memory) {
-	Word AbsAddress = FetchWord(Cycles, memory);
-	Word AbsAddressX = AbsAddress + X;
-	Cycles--;
+  Word AbsAddress = FetchWord(Cycles, memory);
+  Word AbsAddressX = AbsAddress + X;
+  Cycles--;
 
-	return AbsAddressX;
+  return AbsAddressX;
 }
 
 m6502::Word m6502::CPU::AddrAbsoluteY(s32 &Cycles, const Mem &memory) {
-	Word AbsAddress = FetchWord(Cycles, memory);
-	Word AbsAddressY = AbsAddress + Y;
-	const bool CrossedPageBoundary = (AbsAddress ^ AbsAddressY) >> 8;
-	if (CrossedPageBoundary) {
-		Cycles--;
-	}
+  Word AbsAddress = FetchWord(Cycles, memory);
+  Word AbsAddressY = AbsAddress + Y;
+  const bool CrossedPageBoundary = (AbsAddress ^ AbsAddressY) >> 8;
+  if (CrossedPageBoundary) {
+    Cycles--;
+  }
 
-	return AbsAddressY;
+  return AbsAddressY;
 }
 
 m6502::Word m6502::CPU::AddrAbsoluteY_5(s32 &Cycles, const Mem &memory){
-	Word AbsAddress = FetchWord(Cycles, memory);
-	Word AbsAddressY = AbsAddress + Y;	
-	Cycles--;
+  Word AbsAddress = FetchWord(Cycles, memory);
+  Word AbsAddressY = AbsAddress + Y;	
+  Cycles--;
 
-	return AbsAddressY;
+  return AbsAddressY;
 }
 
 m6502::Word m6502::CPU::AddrIndirectX(s32 &Cycles, const Mem &memory) {
-	Byte ZPAddress = FetchByte(Cycles, memory);
-	ZPAddress += X;
-	Cycles--;
-	Word EffectiveAddr = ReadWord( Cycles, ZPAddress, memory );
+  Byte ZPAddress = FetchByte(Cycles, memory);
+  ZPAddress += X;
+  Cycles--;
+  Word EffectiveAddr = ReadWord( Cycles, ZPAddress, memory );
 
-	return EffectiveAddr;
+  return EffectiveAddr;
 }
 
 m6502::Word m6502::CPU::AddrIndirectY(s32 &Cycles, const Mem &memory) {
-	Byte ZPAddress = FetchByte(Cycles, memory);
-	Word EffectiveAddr = ReadWord( Cycles, ZPAddress, memory );
-	Word EffectiveAddrY = EffectiveAddr + Y;
-	const bool CrossedPageBoundary = (EffectiveAddr ^ EffectiveAddrY) >> 8;
-	if (CrossedPageBoundary) {
-		Cycles--;
-	}
+  Byte ZPAddress = FetchByte(Cycles, memory);
+  Word EffectiveAddr = ReadWord( Cycles, ZPAddress, memory );
+  Word EffectiveAddrY = EffectiveAddr + Y;
+  const bool CrossedPageBoundary = (EffectiveAddr ^ EffectiveAddrY) >> 8;
+  if (CrossedPageBoundary) {
+    Cycles--;
+  }
 
-	return EffectiveAddrY;
+  return EffectiveAddrY;
 }
 
 m6502::Word m6502::CPU::AddrIndirectY_6(s32 &Cycles, const Mem &memory) {
-	Byte ZPAddress = FetchByte(Cycles, memory);
-	Word EffectiveAddr = ReadWord( Cycles, ZPAddress, memory );
-	Word EffectiveAddrY = EffectiveAddr + Y;
-	Cycles--;
+  Byte ZPAddress = FetchByte(Cycles, memory);
+  Word EffectiveAddr = ReadWord( Cycles, ZPAddress, memory );
+  Word EffectiveAddrY = EffectiveAddr + Y;
+  Cycles--;
 
-	return EffectiveAddrY;
+  return EffectiveAddrY;
 }
 
 
 m6502::Word m6502::CPU::LoadPrg(const Byte *Program, u32 NumBytes, Mem &memory) const {
-	Word LoadAddress = 0;
-	if (Program && NumBytes > 2) {
-		u32 At = 0;
-		const Word Lo = Program[At++];
-		const Word Hi = Program[At++] << 8;
-		LoadAddress = Lo | Hi;
-		for (Word i=LoadAddress; i<LoadAddress+NumBytes-2; i++) {
-			//TODO: mem copy?
-			memory[i] = Program[At++];
-		}
-	}
+  Word LoadAddress = 0;
+  if (Program && NumBytes > 2) {
+    u32 At = 0;
+    const Word Lo = Program[At++];
+    const Word Hi = Program[At++] << 8;
+    LoadAddress = Lo | Hi;
+    for (Word i=LoadAddress; i<LoadAddress+NumBytes-2; i++) {
+      //TODO: mem copy?
+      memory[i] = Program[At++];
+    }
+  }
 
-	return LoadAddress;
+  return LoadAddress;
 }
 
 void m6502::CPU::PrintStatus() const {
-	printf( "A: %d X: %d Y: %d\n", A, X, Y );
-	printf( "PC: %d SP: %d\n", PC, SP );
-	printf( "PS: %d\n", PS );
+  printf( "A: %d X: %d Y: %d\n", A, X, Y );
+  printf( "PC: %d SP: %d\n", PC, SP );
+  printf( "PS: %d\n", PS );
 }
