@@ -2,7 +2,7 @@
 Emulation of the classic video game console chip MOS Technology 6502 (mostly just called "the 6502") used in numerous home devices during the 1980s
 Like the: Atari 2600, Apple II, Nintendo Entertainment System (NES), Commodore 64 (C64), BBC Micro and many others.
 Some of this code was written by me back in the end 00s, and then somewhat abandoned due to may problems with insufficient testing. Later it was re-written.
-This emulation was inspired by my love of retro consoles and wanted to focus on the inner-workings of CPUs (at the time). And understanding as well as checking if the crude approach of just recreating the technical / operational logic of a given processing unit is 1:1 depictable by, lets call it a long sting of ifs and arrays.
+This emulation was inspired by my love of retro consoles and wanted to focus on the inner-workings of CPUs (at the time). And understanding as well as checking if the crude approach of just recreating the technical / operational logic of a given processing unit is 1:1 depictable by, lets call it a long string of ifs and arrays.
 
 ## Description
 We want to emulate the function of the 6502 using the C++ programming language and also have a valid way of testing it.
