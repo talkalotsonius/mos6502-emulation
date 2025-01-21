@@ -4,16 +4,12 @@
 
 /** Reference: http://www.6502.org/users/obelisk/ */
 namespace m6502 {
-	typedef char SByte;
-  typedef unsigned char Byte;
-  typedef unsigned short Word;
-	//using Byte  = unsigned char;
-	//using Word  = unsigned short;
+	using SByte = char;
+	using Byte  = unsigned char;
+	using Word  = unsigned short;
 
-  typedef unsigned int u32;
-  typedef signed int s32;
-	//using u32   = unsigned int;
-	//using s32   = signed int;
+	using u32   = unsigned int;
+	using s32   = signed int;
 
 	struct Mem;
 	struct CPU;
