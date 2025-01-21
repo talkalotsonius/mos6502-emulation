@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "mos6502.h"
 
-class M6502AddSubWithCarryTests : public testing::Test {
+class AddSubWithCarryTest : public testing::Test {
 public:
     m6502::Mem mem;
     m6502::CPU cpu;

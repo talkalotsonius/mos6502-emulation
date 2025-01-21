@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include "mos6502.h"
 
-class M6502AndEorOraBitTests : public testing::Test
+class AndEorOraBitTest : public testing::Test
 {
 public:	
     m6502::Mem mem;
