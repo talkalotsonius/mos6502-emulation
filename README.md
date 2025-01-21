@@ -4,16 +4,16 @@ Like the: Atari 2600, Apple II, Nintendo Entertainment System (NES), Commodore 6
 Some of this code was written by me back in the end 00s, and then somewhat abandoned due to may problems with insufficent testing. Later it was re-written.
 This emulation was inspired by my love of retro consoles and wanted to focus on the innerworkings of CPUs (at the time). And understanding as well as checking if the crude approach of just recreating the techical / operational logic of a given processing unit is 1:1 depictable by, lets call it a long sting of ifs and arrays.
 
-# Description
+## Description
 We want to emulate the function of the 6502 using the C++ programming language and also have a valid way of testing it.
 As a technical referance for all operations and registers we are woking off of [Andrew Jacobs' (BitWise) work](http://www.6502.org/users/obelisk/).
 Furthermore we are making use of [Klaus2m5's work](https://github.com/Klaus2m5/6502_65C02_functional_tests) in the field of 6502 assembly code to test all of the chip's functions.
 This is or will by all means not be a full and entire emulation enviroment to run i.e. a C64 game or program. For this to work we need more than just the logical units of a CPU. Graphics, Sound, general I/O (like data storage, user input, ...) all mak the emulation a running system. But of course the CPU is the beating heart of any computer / console.
 
-# Compilation & Installation
+## Compilation & Installation
 XXX
 
-# Learining exercise
+## Learining exercise
 Now, what did we learn from this?
 
 * Some, if not many, features of logical hardware are undocumented. Or, dependent on age, may have gone lost.
@@ -22,5 +22,5 @@ Now, what did we learn from this?
 * If you may ever start questioning tests, especially unit tests, of the smalles most stupid things in (coding) life, this will teach you!
 * Should we really use switch statements for this? I don't want to even think of any x86 recreation like this! :D
 
-# Acknowledgements
+## Acknowledgements
 Some of the re-wites of this code are losely based and (re-)inspired by @davepoo's "Emulating a CPU in C++" https://youtu.be/qJgsuQoy9bc
