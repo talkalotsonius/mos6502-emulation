@@ -8,7 +8,7 @@ This emulation was inspired by my love of retro consoles and wanted to focus on 
 We want to emulate the function of the 6502 using the C++ programming language and also have a valid way of testing it.
 As a technical reference for all operations and registers we are working off of [Andrew Jacobs' (BitWise) work](http://www.6502.org/users/obelisk/).
 Furthermore we are making use of [Klaus2m5's work](https://github.com/Klaus2m5/6502_65C02_functional_tests) in the field of 6502 assembly code to test all of the chip's functions.
-This is or will by all means not be a full and entire emulation environment to run i.e. a C64 game or program. For this to work we need more than just the logical units of a CPU. Graphics, Sound, general I/O (like data storage, user input, ...) all mak the emulation a running system. But of course the CPU is the beating heart of any computer / console.
+This is, or will, by all means not be a full and entire emulation environment to run i.e. a C64 game or program. For this to work we need more than just the logical units of a CPU. Graphics, Sound, general I/O (like data storage, user input, ...) all mak the emulation a running system. But of course the CPU is the beating heart of any computer / console.
 
 ## Compilation & Installation
 XXX
