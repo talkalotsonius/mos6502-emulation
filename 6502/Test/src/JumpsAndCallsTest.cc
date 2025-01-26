@@ -13,7 +13,7 @@ public:
 	virtual void TearDown()	{}
 };
 
-TEST_F(M6502JumpsAndCallsTests, CanJumpToASubroutineAndJumpBackAgain) {
+TEST_F(JumpsAndCallsTest, CanJumpToASubroutineAndJumpBackAgain) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -35,7 +35,7 @@ TEST_F(M6502JumpsAndCallsTests, CanJumpToASubroutineAndJumpBackAgain) {
 	EXPECT_EQ(cpu.SP, CPUCopy.SP);
 }
 
-TEST_F(M6502JumpsAndCallsTests, JSRDoesNotAffectTheProcessorStatus) {
+TEST_F(JumpsAndCallsTest, JSRDoesNotAffectTheProcessorStatus) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -55,7 +55,7 @@ TEST_F(M6502JumpsAndCallsTests, JSRDoesNotAffectTheProcessorStatus) {
 	EXPECT_EQ(cpu.PC, 0x8000);
 }
 
-TEST_F(M6502JumpsAndCallsTests, RTSDoesNotAffectTheProcessorStatus) {
+TEST_F(JumpsAndCallsTest, RTSDoesNotAffectTheProcessorStatus) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -75,7 +75,7 @@ TEST_F(M6502JumpsAndCallsTests, RTSDoesNotAffectTheProcessorStatus) {
 	EXPECT_EQ(cpu.PC, 0xFF03);
 }
 
-TEST_F(M6502JumpsAndCallsTests, JumpAbsoluteCanJumpToAnNewLocationInTheProgram) {
+TEST_F(JumpsAndCallsTest, JumpAbsoluteCanJumpToAnNewLocationInTheProgram) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -95,7 +95,7 @@ TEST_F(M6502JumpsAndCallsTests, JumpAbsoluteCanJumpToAnNewLocationInTheProgram) 
 	EXPECT_EQ(cpu.PC, 0x8000);
 }
 
-TEST_F(M6502JumpsAndCallsTests, JumpIndirectCanJumpToAnNewLocationInTheProgram) {
+TEST_F(JumpsAndCallsTest, JumpIndirectCanJumpToAnNewLocationInTheProgram) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);

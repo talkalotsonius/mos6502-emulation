@@ -116,52 +116,52 @@ public:
 	}
 };
 
-TEST_F(M6502StoreRegisterTests, STAZeroPageCanStoreTheARegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STAZeroPageCanStoreTheARegisterIntoMemory) {
 	using namespace m6502;
 	TestStoreRegisterZeroPage(CPU::INS_STA_ZP, &CPU::A);
 }
 
-TEST_F(M6502StoreRegisterTests, STXZeroPageCanStoreTheXRegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STXZeroPageCanStoreTheXRegisterIntoMemory) {
 	using namespace m6502;
 	TestStoreRegisterZeroPage(CPU::INS_STX_ZP, &CPU::X);
 }
 
-TEST_F(M6502StoreRegisterTests, STXZeroPageYCanStoreTheXRegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STXZeroPageYCanStoreTheXRegisterIntoMemory) {
 	using namespace m6502;
 	TestStoreRegisterZeroPageY(CPU::INS_STX_ZPY, &CPU::X);
 }
 
-TEST_F(M6502StoreRegisterTests, STYZeroPageCanStoreTheYRegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STYZeroPageCanStoreTheYRegisterIntoMemory) {
 	using namespace m6502;
 	TestStoreRegisterZeroPage(CPU::INS_STY_ZP, &CPU::Y);
 }
 
-TEST_F(M6502StoreRegisterTests, STAAbsoluteCanStoreTheARegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STAAbsoluteCanStoreTheARegisterIntoMemory) {
 	using namespace m6502;
 	TestStoreRegisterAbsolute(CPU::INS_STA_ABS, &CPU::A);
 }
 
-TEST_F(M6502StoreRegisterTests, STXAbsoluteCanStoreTheXRegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STXAbsoluteCanStoreTheXRegisterIntoMemory) {
 	using namespace m6502;
 	TestStoreRegisterAbsolute(CPU::INS_STX_ABS, &CPU::X);
 }
 
-TEST_F(M6502StoreRegisterTests, STYAbsoluteCanStoreTheYRegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STYAbsoluteCanStoreTheYRegisterIntoMemory) {
 	using namespace m6502;
 	TestStoreRegisterAbsolute(CPU::INS_STY_ABS, &CPU::Y);
 }
 
-TEST_F(M6502StoreRegisterTests, STAZeroPageXCanStoreTheARegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STAZeroPageXCanStoreTheARegisterIntoMemory) {
 	using namespace m6502;
 	TestStoreRegisterZeroPageX(CPU::INS_STA_ZPX, &CPU::A);
 }
 
-TEST_F(M6502StoreRegisterTests, STYZeroPageXCanStoreTheYRegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STYZeroPageXCanStoreTheYRegisterIntoMemory) {
 	using namespace m6502;
 	TestStoreRegisterZeroPageX(CPU::INS_STY_ZPX, &CPU::Y);
 }
 
-TEST_F(M6502StoreRegisterTests, STAAbsoluteXCanStoreTheARegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STAAbsoluteXCanStoreTheARegisterIntoMemory) {
 	// given:
 	using namespace m6502;
 	cpu.A = 0x42;
@@ -181,7 +181,7 @@ TEST_F(M6502StoreRegisterTests, STAAbsoluteXCanStoreTheARegisterIntoMemory) {
 	VerifyUnmodifiedFlagsFromStoreRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502StoreRegisterTests, STAAbsoluteYCanStoreTheARegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STAAbsoluteYCanStoreTheARegisterIntoMemory) {
 	// given:
 	using namespace m6502;
 	cpu.A = 0x42;
@@ -201,7 +201,7 @@ TEST_F(M6502StoreRegisterTests, STAAbsoluteYCanStoreTheARegisterIntoMemory) {
 	VerifyUnmodifiedFlagsFromStoreRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502StoreRegisterTests, STAIndirectXCanStoreTheARegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STAIndirectXCanStoreTheARegisterIntoMemory) {
 	// given:
 	using namespace m6502;
 	cpu.A = 0x42;
@@ -223,7 +223,7 @@ TEST_F(M6502StoreRegisterTests, STAIndirectXCanStoreTheARegisterIntoMemory) {
 	VerifyUnmodifiedFlagsFromStoreRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502StoreRegisterTests, STAIndirectYCanStoreTheARegisterIntoMemory) {
+TEST_F(StoreRegisterTest, STAIndirectYCanStoreTheARegisterIntoMemory) {
 	// given:
 	using namespace m6502;
 	cpu.A = 0x42;

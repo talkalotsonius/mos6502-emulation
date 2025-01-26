@@ -86,6 +86,10 @@ public:
         Byte* Register = &cpu.A;
         Byte Opcode = CPU::INS_CMP;
         switch (RegisterToCompare){
+        case ERegister::A:
+            Register = &cpu.A;
+            Opcode = CPU::INS_CMP;
+            break;    
         case ERegister::X:
             Register = &cpu.X;
             Opcode = CPU::INS_CPX;
@@ -125,6 +129,10 @@ public:
         Byte* Register = &cpu.A;
         Byte Opcode = CPU::INS_CMP_ZP;
         switch (RegisterToCompare) {
+            case ERegister::A:
+            Register = &cpu.A;
+            Opcode = CPU::INS_CMP;
+            break;  
         case ERegister::X:
             Register = &cpu.X;
             Opcode = CPU::INS_CPX_ZP;
@@ -192,6 +200,10 @@ public:
         Byte* Register = &cpu.A;
         Byte Opcode = CPU::INS_CMP_ABS;
         switch (RegisterToCompare) {
+            case ERegister::A:
+            Register = &cpu.A;
+            Opcode = CPU::INS_CMP;
+            break;  
         case ERegister::X:
             Register = &cpu.X;
             Opcode = CPU::INS_CPX_ABS;
@@ -343,314 +355,314 @@ public:
 
 //-- Immediate
 
-TEST_F(M6502CompareRegisterTests, CMPImmediateCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CMPImmediateCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CompareImmediate(Test, ERegister::A);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPImmediateCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CMPImmediateCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CompareImmediate(Test, ERegister::A);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPImmediateCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CMPImmediateCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CompareImmediate(Test, ERegister::A);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPImmediateCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CMPImmediateCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CompareImmediate(Test, ERegister::A);
 }
 
 //-- Zero Page
 
-TEST_F(M6502CompareRegisterTests, CMPZeroPageCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CMPZeroPageCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CompareZeroPage(Test, ERegister::A);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPZeroPageCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CMPZeroPageCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CompareZeroPage(Test, ERegister::A);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPZeroPageCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CMPZeroPageCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CompareZeroPage(Test, ERegister::A);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPZeroPageCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CMPZeroPageCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CompareZeroPage(Test, ERegister::A);
 }
 
 //-- Zero Page X
 
-TEST_F(M6502CompareRegisterTests, CMPZeroPageXCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CMPZeroPageXCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CMPZeroPageX(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPZeroPageXCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CMPZeroPageXCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CMPZeroPageX(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPZeroPageXCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CMPZeroPageXCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CMPZeroPageX(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPZeroPageXCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CMPZeroPageXCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CMPZeroPageX(Test);
 }
 
 //-- Absolute
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CMPAbsoluteCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CompareAbsolute(Test, ERegister::A);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CMPAbsoluteCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CompareAbsolute(Test, ERegister::A);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CMPAbsoluteCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CompareAbsolute(Test, ERegister::A);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CMPAbsoluteCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CompareAbsolute(Test, ERegister::A);
 }
 
 //-- Absolute X
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteXCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CMPAbsoluteXCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CMPAbsoluteX(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteXCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CMPAbsoluteXCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CMPAbsoluteX(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteXCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CMPAbsoluteXCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CMPAbsoluteX(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteXCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CMPAbsoluteXCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CMPAbsoluteX(Test);
 }
 
 //-- Absolute Y
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteYCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CMPAbsoluteYCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CMPAbsoluteY(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteYCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CMPAbsoluteYCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CMPAbsoluteY(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteYCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CMPAbsoluteYCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CMPAbsoluteY(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPAbsoluteYCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CMPAbsoluteYCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CMPAbsoluteY(Test);
 }
 
 //-- Indirect X
 
-TEST_F(M6502CompareRegisterTests, CMPIndirectXCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CMPIndirectXCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CMPIndirectX(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPIndirectXCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CMPIndirectXCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CMPIndirectX(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPIndirectXCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CMPIndirectXCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CMPIndirectX(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPIndirectXCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CMPIndirectXCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CMPIndirectX(Test);
 }
 
 //-- Indirect Y
 
-TEST_F(M6502CompareRegisterTests, CMPIndirectYCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CMPIndirectYCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CMPIndirectY(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPIndirectYCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CMPIndirectYCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CMPIndirectY(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPIndirectYCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CMPIndirectYCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CMPIndirectY(Test);
 }
 
-TEST_F(M6502CompareRegisterTests, CMPIndirectYCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CMPIndirectYCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CMPIndirectY(Test);
 }
 
 //-- CPX Immediate
 
-TEST_F(M6502CompareRegisterTests, CPXImmediateCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CPXImmediateCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CompareImmediate(Test, ERegister::X);
 }
 
-TEST_F(M6502CompareRegisterTests, CPXImmediateCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CPXImmediateCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CompareImmediate(Test, ERegister::X);
 }
 
-TEST_F(M6502CompareRegisterTests, CPXImmediateCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CPXImmediateCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CompareImmediate(Test, ERegister::X);
 }
 
-TEST_F(M6502CompareRegisterTests, CPXImmediateCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CPXImmediateCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CompareImmediate(Test, ERegister::X);
 }
 
 //-- CPY Immediate
 
-TEST_F(M6502CompareRegisterTests, CPYImmediateCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CPYImmediateCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CompareImmediate(Test, ERegister::Y);
 }
 
-TEST_F(M6502CompareRegisterTests, CPYImmediateCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CPYImmediateCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CompareImmediate(Test, ERegister::Y);
 }
 
-TEST_F(M6502CompareRegisterTests, CPYImmediateCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CPYImmediateCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CompareImmediate(Test, ERegister::Y);
 }
 
-TEST_F(M6502CompareRegisterTests, CPYImmediateCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CPYImmediateCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CompareImmediate(Test, ERegister::Y);
 }
 
 //-- CPX Zero Page
 
-TEST_F(M6502CompareRegisterTests, CPXZeroPageCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CPXZeroPageCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CompareZeroPage(Test, ERegister::X);
 }
 
-TEST_F(M6502CompareRegisterTests, CPXZeroPageCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CPXZeroPageCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CompareZeroPage(Test, ERegister::X);
 }
 
-TEST_F(M6502CompareRegisterTests, CPXZeroPageCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CPXZeroPageCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CompareZeroPage(Test, ERegister::X);
 }
 
-TEST_F(M6502CompareRegisterTests, CPXZeroPageCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CPXZeroPageCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CompareZeroPage(Test, ERegister::X);
 }
 
 //-- CPY Zero Page
 
-TEST_F(M6502CompareRegisterTests, CPYZeroPageCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CPYZeroPageCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CompareZeroPage(Test, ERegister::Y);
 }
 
-TEST_F(M6502CompareRegisterTests, CPYZeroPageCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CPYZeroPageCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CompareZeroPage(Test, ERegister::Y);
 }
 
-TEST_F(M6502CompareRegisterTests, CPYZeroPageCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CPYZeroPageCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CompareZeroPage(Test, ERegister::Y);
 }
 
-TEST_F(M6502CompareRegisterTests, CPYZeroPageCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CPYZeroPageCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CompareZeroPage(Test, ERegister::Y);
 }
 
 //-- CPX Absolute
 
-TEST_F(M6502CompareRegisterTests, CPXAbsoluteCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CPXAbsoluteCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CompareAbsolute(Test, ERegister::X);
 }
 
-TEST_F(M6502CompareRegisterTests, CPXAbsoluteCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CPXAbsoluteCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CompareAbsolute(Test, ERegister::X);
 }
 
-TEST_F(M6502CompareRegisterTests, CPXAbsoluteCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CPXAbsoluteCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CompareAbsolute(Test, ERegister::X);
 }
 
-TEST_F(M6502CompareRegisterTests, CPXAbsoluteCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CPXAbsoluteCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CompareAbsolute(Test, ERegister::X);
 }
 
 //-- CPY Absolute
 
-TEST_F(M6502CompareRegisterTests, CPYAbsoluteCanCompareTwoIdenticalValues) {
+TEST_F(CompareRegisterTest, CPYAbsoluteCanCompareTwoIdenticalValues) {
     CMPTestData Test = CompareTwoIdenticalValues();
     CompareAbsolute(Test, ERegister::Y);
 }
 
-TEST_F(M6502CompareRegisterTests, CPYAbsoluteCanCompareALargePositiveToASmallPositive) {
+TEST_F(CompareRegisterTest, CPYAbsoluteCanCompareALargePositiveToASmallPositive) {
     CMPTestData Test = CompareALargePositiveToASmallPositive();
     CompareAbsolute(Test, ERegister::Y);
 }
 
-TEST_F(M6502CompareRegisterTests, CPYAbsoluteCanCompareANegativeNumberToAPositive) {
+TEST_F(CompareRegisterTest, CPYAbsoluteCanCompareANegativeNumberToAPositive) {
     CMPTestData Test = CompareANegativeNumberToAPositive();
     CompareAbsolute(Test, ERegister::Y);
 }
 
-TEST_F(M6502CompareRegisterTests, CPYAbsoluteCanCompareTwoValuesThatResultInANegativeFlagSet) {
+TEST_F(CompareRegisterTest, CPYAbsoluteCanCompareTwoValuesThatResultInANegativeFlagSet) {
     CMPTestData Test = CompareTwoValuesThatResultInANegativeFlagSet();
     CompareAbsolute(Test, ERegister::Y);
 }
 
 #if 0 // for loop test
-TEST_F(M6502CompareRegisterTests, LoopTest) {
+TEST_F(CompareRegisterTest, LoopTest) {
     // given:
     using namespace m6502;
     /* 

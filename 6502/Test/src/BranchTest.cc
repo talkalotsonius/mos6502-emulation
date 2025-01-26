@@ -13,7 +13,7 @@ public:
     virtual void TearDown()	{}
 };
 
-TEST_F(M6502BranchTests, BEQCanBranchForwardsWhenZeroIsSet) {
+TEST_F(BranchTest, BEQCanBranchForwardsWhenZeroIsSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -32,7 +32,7 @@ TEST_F(M6502BranchTests, BEQCanBranchForwardsWhenZeroIsSet) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BEQDoesNotBranchForwardsWhenZeroIsNotSet) {
+TEST_F(BranchTest, BEQDoesNotBranchForwardsWhenZeroIsNotSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -51,7 +51,7 @@ TEST_F(M6502BranchTests, BEQDoesNotBranchForwardsWhenZeroIsNotSet) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BEQCanBranchForwardsIntoANewPageWhenZeroIsSet) {
+TEST_F(BranchTest, BEQCanBranchForwardsIntoANewPageWhenZeroIsSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFEFD, mem);
@@ -70,7 +70,7 @@ TEST_F(M6502BranchTests, BEQCanBranchForwardsIntoANewPageWhenZeroIsSet) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BEQCanBranchBackwardsWhenZeroIsSet) {
+TEST_F(BranchTest, BEQCanBranchBackwardsWhenZeroIsSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFFCC, mem);
@@ -89,7 +89,7 @@ TEST_F(M6502BranchTests, BEQCanBranchBackwardsWhenZeroIsSet) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BEQCanBranchBackwardsWhenZeroIsSetFromAssembleCode) {
+TEST_F(BranchTest, BEQCanBranchBackwardsWhenZeroIsSetFromAssembleCode) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFFCC, mem);
@@ -115,7 +115,7 @@ TEST_F(M6502BranchTests, BEQCanBranchBackwardsWhenZeroIsSetFromAssembleCode) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BNECanBranchForwardsWhenZeroIsNotSet) {
+TEST_F(BranchTest, BNECanBranchForwardsWhenZeroIsNotSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -135,7 +135,7 @@ TEST_F(M6502BranchTests, BNECanBranchForwardsWhenZeroIsNotSet) {
 }
 
 
-TEST_F(M6502BranchTests, BCSCanBranchForwardsWhenCarryFlagIsSet) {
+TEST_F(BranchTest, BCSCanBranchForwardsWhenCarryFlagIsSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -154,7 +154,7 @@ TEST_F(M6502BranchTests, BCSCanBranchForwardsWhenCarryFlagIsSet) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BCCCanBranchForwardsWhenCarryFlagIsNotSet) {
+TEST_F(BranchTest, BCCCanBranchForwardsWhenCarryFlagIsNotSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -173,7 +173,7 @@ TEST_F(M6502BranchTests, BCCCanBranchForwardsWhenCarryFlagIsNotSet) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BMICanBranchForwardsWhenNegativeFlagIsSet) {
+TEST_F(BranchTest, BMICanBranchForwardsWhenNegativeFlagIsSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -192,7 +192,7 @@ TEST_F(M6502BranchTests, BMICanBranchForwardsWhenNegativeFlagIsSet) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BPLCanBranchForwardsWhenCarryNegativeIsNotSet) {
+TEST_F(BranchTest, BPLCanBranchForwardsWhenCarryNegativeIsNotSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -211,7 +211,7 @@ TEST_F(M6502BranchTests, BPLCanBranchForwardsWhenCarryNegativeIsNotSet) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BVSCanBranchForwardsWhenOverflowFlagIsSet) {
+TEST_F(BranchTest, BVSCanBranchForwardsWhenOverflowFlagIsSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -230,7 +230,7 @@ TEST_F(M6502BranchTests, BVSCanBranchForwardsWhenOverflowFlagIsSet) {
     EXPECT_EQ(cpu.PS, CPUCopy.PS);
 }
 
-TEST_F(M6502BranchTests, BVCCanBranchForwardsWhenOverflowNegativeIsNotSet) {
+TEST_F(BranchTest, BVCCanBranchForwardsWhenOverflowNegativeIsNotSet) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);

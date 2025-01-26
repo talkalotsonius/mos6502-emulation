@@ -11,7 +11,13 @@ Furthermore we are making use of [Klaus2m5's work](https://github.com/Klaus2m5/6
 This is, or will, by all means not be a full and entire emulation environment to run i.e. a C64 game or program. For this to work we need more than just the logical units of a CPU. Graphics, Sound, general I/O (like data storage, user input, ...) all together make the emulation a running system. But of course, the CPU is the beating heart of any computer / console.
 
 ## Compilation & Installation
-XXX
+```
+cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_C_COMPILER:FILEPATH= <path-to-gcc> -DCMAKE_CXX_COMPILER:FILEPATH= <path-to-g++> --no-warn-unused-cli -S<path-to-PROJECT_ROOT>/mos6502-emulation -B<path-to-PROJECT_ROOT>/mos6502-emulation/build -G "Unix Makefiles"
+```
+```
+cmake --build <path-to-PROJECT_ROOT>/mos6502-emulation/build --config Debug --target all -j 12 --
+```
+
 
 ## Learning exercise
 Now, what did we learn from this?

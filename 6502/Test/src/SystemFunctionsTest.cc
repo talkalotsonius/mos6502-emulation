@@ -13,7 +13,7 @@ public:
 	virtual void TearDown()	{}
 };
 
-TEST_F(M6502SystemFunctionsTests, NOPWillDoNothingButConsumeACycle) {
+TEST_F(SystemFunctionsTest, NOPWillDoNothingButConsumeACycle) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -34,7 +34,7 @@ TEST_F(M6502SystemFunctionsTests, NOPWillDoNothingButConsumeACycle) {
 	EXPECT_EQ(cpu.SP, CPUCopy.SP);
 }
 
-TEST_F(M6502SystemFunctionsTests, BRKWillLoadTheProgramCounterFromTheInterruptVector) {
+TEST_F(SystemFunctionsTest, BRKWillLoadTheProgramCounterFromTheInterruptVector) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -42,7 +42,7 @@ TEST_F(M6502SystemFunctionsTests, BRKWillLoadTheProgramCounterFromTheInterruptVe
 	mem[0xFFFE] = 0x00;
 	mem[0xFFFF] = 0x80;
 	constexpr s32 EXPECTED_CYCLES = 7;
-	CPU CPUCopy = cpu;
+	// CPU CPUCopy = cpu;
 
 	// when:
 	const s32 ActualCycles = cpu.Execute(EXPECTED_CYCLES, mem);
@@ -52,7 +52,7 @@ TEST_F(M6502SystemFunctionsTests, BRKWillLoadTheProgramCounterFromTheInterruptVe
 	EXPECT_EQ(cpu.PC, 0x8000);
 }
 
-TEST_F(M6502SystemFunctionsTests, BRKWillLoadTheProgramCounterFromTheInterruptVector2) {
+TEST_F(SystemFunctionsTest, BRKWillLoadTheProgramCounterFromTheInterruptVector2) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -60,7 +60,7 @@ TEST_F(M6502SystemFunctionsTests, BRKWillLoadTheProgramCounterFromTheInterruptVe
 	mem[0xFFFE] = 0x00;
 	mem[0xFFFF] = 0x90;
 	constexpr s32 EXPECTED_CYCLES = 7;
-	CPU CPUCopy = cpu;
+	// CPU CPUCopy = cpu;
 
 	// when:
 	const s32 ActualCycles = cpu.Execute(EXPECTED_CYCLES, mem);
@@ -70,14 +70,14 @@ TEST_F(M6502SystemFunctionsTests, BRKWillLoadTheProgramCounterFromTheInterruptVe
 	EXPECT_EQ(cpu.PC, 0x9000);
 }
 
-TEST_F(M6502SystemFunctionsTests, BRKWillSetTheBreakFlag) {
+TEST_F(SystemFunctionsTest, BRKWillSetTheBreakFlag) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
 	cpu.Flag.B = false;
 	mem[0xFF00] = CPU::INS_BRK;
 	constexpr s32 EXPECTED_CYCLES = 7;
-	CPU CPUCopy = cpu;
+	// CPU CPUCopy = cpu;
 
 	// when:
 	const s32 ActualCycles = cpu.Execute(EXPECTED_CYCLES, mem);
@@ -87,7 +87,7 @@ TEST_F(M6502SystemFunctionsTests, BRKWillSetTheBreakFlag) {
 	EXPECT_TRUE(cpu.Flag.B);
 }
 
-TEST_F(M6502SystemFunctionsTests, BRKWillPush3BytesOntoTheStack) {
+TEST_F(SystemFunctionsTest, BRKWillPush3BytesOntoTheStack) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -103,7 +103,7 @@ TEST_F(M6502SystemFunctionsTests, BRKWillPush3BytesOntoTheStack) {
 	EXPECT_EQ(cpu.SP, CPUCopy.SP - 3);
 }
 
-TEST_F(M6502SystemFunctionsTests, BRKWillPushPCandPSOntoTheStack) {
+TEST_F(SystemFunctionsTest, BRKWillPushPCandPSOntoTheStack) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -135,7 +135,7 @@ TEST_F(M6502SystemFunctionsTests, BRKWillPushPCandPSOntoTheStack) {
 	EXPECT_EQ(cpu.Flag.I, true);
 }
 
-TEST_F(M6502SystemFunctionsTests, RTICanReturnFromAnInterruptLeavingTheCPUInTheStateWhenItEntered) {
+TEST_F(SystemFunctionsTest, RTICanReturnFromAnInterruptLeavingTheCPUInTheStateWhenItEntered) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);

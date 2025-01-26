@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.30)
 
-project( M6502Emu )
+project( MOS6502Emu )
 
 set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DM6502_DEBUG" )	#so we can add the DEBUG preprocessor define and other flags to stay in debug mode - see https://cmake.org/Wiki/CMake_Useful_Variables#Compilers_and_Tools
 set( CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -DM6502_DEBUG" )
@@ -38,7 +38,7 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
                  EXCLUDE_FROM_ALL)
 
 # source for the test executable
-set  (M6502_SOURCES
+set  (MOS6502_SOURCES
 		"src/main.cc"
 		"src/LoadRegisterTest.cc"
 		"src/StoreRegisterTest.cc"
@@ -55,9 +55,9 @@ set  (M6502_SOURCES
 		"src/ShiftTest.cc"
 		"src/SystemFunctionsTest.cc")
 		
-source_group("src" FILES ${M6502_SOURCES})
+source_group("src" FILES ${MOS6502_SOURCES})
 		
-add_executable( M6502Test ${M6502_SOURCES} 	)
-add_dependencies( M6502Test M6502Lib )
-target_link_libraries(M6502Test gtest)
-target_link_libraries(M6502Test M6502Lib)
+add_executable( MOS6502Test ${MOS6502_SOURCES} )
+add_dependencies( MOS6502Test MOS6502Emu )
+target_link_libraries(MOS6502Test gtest)
+target_link_libraries(MOS6502Test MOS6502Emu)

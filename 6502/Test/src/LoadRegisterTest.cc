@@ -60,7 +60,7 @@ static void VerifyUnmodifiedFlagsFromLoadRegister(
 	EXPECT_EQ(cpu.Flag.V, CPUCopy.Flag.V);
 }
 
-TEST_F(M6502LoadRegisterTests, TheCPUDoesNothingWhenWeExecuteZeroCycles) {
+TEST_F(LoadRegisterTest, TheCPUDoesNothingWhenWeExecuteZeroCycles) {
 	//given:
 	using namespace m6502;
 	constexpr s32 NUM_CYCLES = 0;
@@ -72,12 +72,12 @@ TEST_F(M6502LoadRegisterTests, TheCPUDoesNothingWhenWeExecuteZeroCycles) {
 	EXPECT_EQ(CyclesUsed, 0);
 }
 
-TEST_F(M6502LoadRegisterTests, CPUCanExecuteMoreCyclesThanRequestedIfRequiredByTheInstruction) {
+TEST_F(LoadRegisterTest, CPUCanExecuteMoreCyclesThanRequestedIfRequiredByTheInstruction) {
 	// given:
 	using namespace m6502;
 	mem[0xFFFC] = CPU::INS_LDA_IM;
 	mem[0xFFFD] = 0x84;
-	CPU CPUCopy = cpu;
+	// CPU CPUCopy = cpu;
 	constexpr s32 NUM_CYCLES = 1;
 
 	//when:
@@ -87,7 +87,7 @@ TEST_F(M6502LoadRegisterTests, CPUCanExecuteMoreCyclesThanRequestedIfRequiredByT
 	EXPECT_EQ(CyclesUsed, 2);
 }
 
-void M6502LoadRegisterTests::TestLoadRegisterImmediate(
+void LoadRegisterTest::TestLoadRegisterImmediate(
 	m6502::Byte OpcodeToTest,  
 	m6502::Byte m6502::CPU::*RegisterToTest) {
 	// given:
@@ -107,22 +107,22 @@ void M6502LoadRegisterTests::TestLoadRegisterImmediate(
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAImmediateCanLoadAValueIntoTheARegister) {
+TEST_F(LoadRegisterTest, LDAImmediateCanLoadAValueIntoTheARegister) {
 	using namespace m6502;
 	TestLoadRegisterImmediate(CPU::INS_LDA_IM, &CPU::A);
 }
 
-TEST_F(M6502LoadRegisterTests, LDXImmediateCanLoadAValueIntoTheXRegister) {
+TEST_F(LoadRegisterTest, LDXImmediateCanLoadAValueIntoTheXRegister) {
 	using namespace m6502;
 	TestLoadRegisterImmediate(CPU::INS_LDX_IM, &CPU::X);
 }
 
-TEST_F(M6502LoadRegisterTests, LDYImmediateCanLoadAValueIntoTheYRegister) {
+TEST_F(LoadRegisterTest, LDYImmediateCanLoadAValueIntoTheYRegister) {
 	using namespace m6502;
 	TestLoadRegisterImmediate(CPU::INS_LDY_IM, &CPU::Y);
 }
 
-void M6502LoadRegisterTests::TestLoadRegisterZeroPage(
+void LoadRegisterTest::TestLoadRegisterZeroPage(
 	m6502::Byte OpcodeToTest,
 	m6502::Byte m6502::CPU::*RegisterToTest) {
 	// given:
@@ -143,22 +143,22 @@ void M6502LoadRegisterTests::TestLoadRegisterZeroPage(
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAZeroPageCanLoadAValueIntoTheARegister) {
+TEST_F(LoadRegisterTest, LDAZeroPageCanLoadAValueIntoTheARegister) {
 	using namespace m6502;
 	TestLoadRegisterZeroPage(CPU::INS_LDA_ZP, &CPU::A);
 }
 
-TEST_F(M6502LoadRegisterTests, LDXZeroPageCanLoadAValueIntoTheXRegister) {
+TEST_F(LoadRegisterTest, LDXZeroPageCanLoadAValueIntoTheXRegister) {
 	using namespace m6502;
 	TestLoadRegisterZeroPage(CPU::INS_LDX_ZP, &CPU::X);
 }
 
-TEST_F(M6502LoadRegisterTests, LDYZeroPageCanLoadAValueIntoTheYRegister) {
+TEST_F(LoadRegisterTest, LDYZeroPageCanLoadAValueIntoTheYRegister) {
 	using namespace m6502;
 	TestLoadRegisterZeroPage(CPU::INS_LDY_ZP, &CPU::Y);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAImmediateCanAffectTheZeroFlag) {
+TEST_F(LoadRegisterTest, LDAImmediateCanAffectTheZeroFlag) {
 	// given:
 	using namespace m6502;
 	cpu.A = 0x44;
@@ -175,7 +175,7 @@ TEST_F(M6502LoadRegisterTests, LDAImmediateCanAffectTheZeroFlag) {
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-void M6502LoadRegisterTests::TestLoadRegisterZeroPageX(
+void LoadRegisterTest::TestLoadRegisterZeroPageX(
 	m6502::Byte OpcodeToTest,
 	m6502::Byte m6502::CPU::*RegisterToTest) {
 	// given:
@@ -197,7 +197,7 @@ void M6502LoadRegisterTests::TestLoadRegisterZeroPageX(
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-void M6502LoadRegisterTests::TestLoadRegisterZeroPageY(
+void LoadRegisterTest::TestLoadRegisterZeroPageY(
 	m6502::Byte OpcodeToTest,
 	m6502::Byte m6502::CPU::*RegisterToTest) {
 	// given:
@@ -219,22 +219,22 @@ void M6502LoadRegisterTests::TestLoadRegisterZeroPageY(
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAZeroPageXCanLoadAValueIntoTheARegister) {
+TEST_F(LoadRegisterTest, LDAZeroPageXCanLoadAValueIntoTheARegister) {
 	using namespace m6502;
 	TestLoadRegisterZeroPageX(CPU::INS_LDA_ZPX, &CPU::A);
 }
 
-TEST_F(M6502LoadRegisterTests, LDXZeroPageYCanLoadAValueIntoTheXRegister) {
+TEST_F(LoadRegisterTest, LDXZeroPageYCanLoadAValueIntoTheXRegister) {
 	using namespace m6502;
 	TestLoadRegisterZeroPageY(CPU::INS_LDX_ZPY, &CPU::X);
 }
 
-TEST_F(M6502LoadRegisterTests, LDYZeroPageXCanLoadAValueIntoTheYRegister) {
+TEST_F(LoadRegisterTest, LDYZeroPageXCanLoadAValueIntoTheYRegister) {
 	using namespace m6502;
 	TestLoadRegisterZeroPageX(CPU::INS_LDY_ZPX, &CPU::Y);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAZeroPageXCanLoadAValueIntoTheARegisterWhenItWraps) {
+TEST_F(LoadRegisterTest, LDAZeroPageXCanLoadAValueIntoTheARegisterWhenItWraps) {
 	// given:
 	using namespace m6502;
 	cpu.X = 0xFF;
@@ -254,7 +254,7 @@ TEST_F(M6502LoadRegisterTests, LDAZeroPageXCanLoadAValueIntoTheARegisterWhenItWr
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-void M6502LoadRegisterTests::TestLoadRegisterAbsolute(
+void LoadRegisterTest::TestLoadRegisterAbsolute(
 	m6502::Byte OpcodeToTest,
 	m6502::Byte m6502::CPU::*RegisterToTest) {
 	// given:
@@ -278,22 +278,22 @@ void M6502LoadRegisterTests::TestLoadRegisterAbsolute(
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAAbsoluteCanLoadAValueIntoTheARegister) {
+TEST_F(LoadRegisterTest, LDAAbsoluteCanLoadAValueIntoTheARegister) {
 	using namespace m6502;
 	TestLoadRegisterAbsolute(CPU::INS_LDA_ABS, &CPU::A);
 }
 
-TEST_F(M6502LoadRegisterTests, LDXAbsoluteCanLoadAValueIntoTheXRegister) {
+TEST_F(LoadRegisterTest, LDXAbsoluteCanLoadAValueIntoTheXRegister) {
 	using namespace m6502;
 	TestLoadRegisterAbsolute(CPU::INS_LDX_ABS, &CPU::X);
 }
 
-TEST_F(M6502LoadRegisterTests, LDYAbsoluteCanLoadAValueIntoTheYRegister) {
+TEST_F(LoadRegisterTest, LDYAbsoluteCanLoadAValueIntoTheYRegister) {
 	using namespace m6502;
 	TestLoadRegisterAbsolute(CPU::INS_LDY_ABS, &CPU::Y);
 }
 
-void M6502LoadRegisterTests::TestLoadRegisterAbsoluteX(
+void LoadRegisterTest::TestLoadRegisterAbsoluteX(
 	m6502::Byte OpcodeToTest,
 	m6502::Byte m6502::CPU::*RegisterToTest) {
 	// given:
@@ -318,7 +318,7 @@ void M6502LoadRegisterTests::TestLoadRegisterAbsoluteX(
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-void M6502LoadRegisterTests::TestLoadRegisterAbsoluteY(
+void LoadRegisterTest::TestLoadRegisterAbsoluteY(
 	m6502::Byte OpcodeToTest,
 	m6502::Byte m6502::CPU::*RegisterToTest) {
 	// given:
@@ -343,22 +343,22 @@ void M6502LoadRegisterTests::TestLoadRegisterAbsoluteY(
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAAbsoluteXCanLoadAValueIntoTheARegister) {
+TEST_F(LoadRegisterTest, LDAAbsoluteXCanLoadAValueIntoTheARegister) {
 	using namespace m6502;
 	TestLoadRegisterAbsoluteX(CPU::INS_LDA_ABSX, &CPU::A);
 }
 
-TEST_F(M6502LoadRegisterTests, LDXAbsoluteYCanLoadAValueIntoTheXRegister) {
+TEST_F(LoadRegisterTest, LDXAbsoluteYCanLoadAValueIntoTheXRegister) {
 	using namespace m6502;
 	TestLoadRegisterAbsoluteY(CPU::INS_LDX_ABSY, &CPU::X);
 }
 
-TEST_F(M6502LoadRegisterTests, LDYAbsoluteXCanLoadAValueIntoTheYRegister) {
+TEST_F(LoadRegisterTest, LDYAbsoluteXCanLoadAValueIntoTheYRegister) {
 	using namespace m6502;
 	TestLoadRegisterAbsoluteX(CPU::INS_LDY_ABSX, &CPU::Y);
 }
 
-void M6502LoadRegisterTests::TestLoadRegisterAbsoluteXWhenCrossingPage(
+void LoadRegisterTest::TestLoadRegisterAbsoluteXWhenCrossingPage(
 	m6502::Byte OpcodeToTest,
 	m6502::Byte m6502::CPU::*RegisterToTest) {
 	// given:
@@ -382,22 +382,22 @@ void M6502LoadRegisterTests::TestLoadRegisterAbsoluteXWhenCrossingPage(
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAAbsoluteXCanLoadAValueIntoTheARegisterWhenItCrossesAPageBoundary) {
+TEST_F(LoadRegisterTest, LDAAbsoluteXCanLoadAValueIntoTheARegisterWhenItCrossesAPageBoundary) {
 	using namespace m6502;
 	TestLoadRegisterAbsoluteXWhenCrossingPage(CPU::INS_LDA_ABSX, &CPU::A);
 }
 
-TEST_F(M6502LoadRegisterTests, LDYAbsoluteXCanLoadAValueIntoTheYRegisterWhenItCrossesAPageBoundary) {
+TEST_F(LoadRegisterTest, LDYAbsoluteXCanLoadAValueIntoTheYRegisterWhenItCrossesAPageBoundary) {
 	using namespace m6502;
 	TestLoadRegisterAbsoluteXWhenCrossingPage(CPU::INS_LDY_ABSX, &CPU::Y);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAAbsoluteYCanLoadAValueIntoTheARegister) {
+TEST_F(LoadRegisterTest, LDAAbsoluteYCanLoadAValueIntoTheARegister) {
 	using namespace m6502;
 	TestLoadRegisterAbsoluteY(CPU::INS_LDA_ABSY, &CPU::A);
 }
 
-void M6502LoadRegisterTests::TestLoadRegisterAbsoluteYWhenCrossingPage(
+void LoadRegisterTest::TestLoadRegisterAbsoluteYWhenCrossingPage(
 	m6502::Byte OpcodeToTest,
 	m6502::Byte m6502::CPU::*RegisterToTest) {
 	// given:
@@ -421,17 +421,17 @@ void M6502LoadRegisterTests::TestLoadRegisterAbsoluteYWhenCrossingPage(
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAAbsoluteYCanLoadAValueIntoTheARegisterWhenItCrossesAPageBoundary) {
+TEST_F(LoadRegisterTest, LDAAbsoluteYCanLoadAValueIntoTheARegisterWhenItCrossesAPageBoundary) {
 	using namespace m6502;
 	TestLoadRegisterAbsoluteYWhenCrossingPage(CPU::INS_LDA_ABSY, &CPU::A);
 }
 
-TEST_F(M6502LoadRegisterTests, LDXAbsoluteYCanLoadAValueIntoTheXRegisterWhenItCrossesAPageBoundary) {
+TEST_F(LoadRegisterTest, LDXAbsoluteYCanLoadAValueIntoTheXRegisterWhenItCrossesAPageBoundary) {
 	using namespace m6502;
 	TestLoadRegisterAbsoluteYWhenCrossingPage(CPU::INS_LDX_ABSY, &CPU::X);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAIndirectXCanLoadAValueIntoTheARegister) {
+TEST_F(LoadRegisterTest, LDAIndirectXCanLoadAValueIntoTheARegister) {
 	// given:
 	using namespace m6502;
 	cpu.Flag.Z = cpu.Flag.N = true;
@@ -455,7 +455,7 @@ TEST_F(M6502LoadRegisterTests, LDAIndirectXCanLoadAValueIntoTheARegister) {
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAIndirectYCanLoadAValueIntoTheARegister) {
+TEST_F(LoadRegisterTest, LDAIndirectYCanLoadAValueIntoTheARegister) {
 	// given:
 	using namespace m6502;
 	cpu.Flag.Z = cpu.Flag.N = true;
@@ -479,7 +479,7 @@ TEST_F(M6502LoadRegisterTests, LDAIndirectYCanLoadAValueIntoTheARegister) {
 	VerifyUnmodifiedFlagsFromLoadRegister(cpu, CPUCopy);
 }
 
-TEST_F(M6502LoadRegisterTests, LDAIndirectYCanLoadAValueIntoTheARegisterWhenItCrossesAPage) {
+TEST_F(LoadRegisterTest, LDAIndirectYCanLoadAValueIntoTheARegisterWhenItCrossesAPage) {
 	// given:
 	using namespace m6502;
 	cpu.Y = 0x1;

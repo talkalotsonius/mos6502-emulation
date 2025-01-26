@@ -33,7 +33,7 @@ public:
 	virtual void TearDown()	{}
 };
 
-TEST_F(M6502LoadPrgTests, TestLoadProgramAProgramIntoTheCorrectAreaOfMemory) {
+TEST_F(LoadPrgTest, TestLoadProgramAProgramIntoTheCorrectAreaOfMemory) {
 	// given:
 	using namespace m6502;
 
@@ -52,7 +52,7 @@ TEST_F(M6502LoadPrgTests, TestLoadProgramAProgramIntoTheCorrectAreaOfMemory) {
 	EXPECT_EQ(mem[0x100C], 0x0);
 }
 
-TEST_F(M6502LoadPrgTests, TestLoadProgramAProgramAndExecuteIt) {
+TEST_F(LoadPrgTest, TestLoadProgramAProgramAndExecuteIt) {
 	// given:
 	using namespace m6502;
 
@@ -66,7 +66,7 @@ TEST_F(M6502LoadPrgTests, TestLoadProgramAProgramAndExecuteIt) {
 	}
 }
 
-TEST_F(M6502LoadPrgTests, LoadThe6502TestPrg) {
+TEST_F(LoadPrgTest, LoadThe6502TestPrg) {
 #if 0
 	// given:
 	using namespace m6502;

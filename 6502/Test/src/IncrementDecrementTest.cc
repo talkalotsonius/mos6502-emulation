@@ -21,7 +21,7 @@ public:
     }
 };
 
-TEST_F(M6502IncrementDecrementTests, INXCanIncrementAZeroValue) {
+TEST_F(IncrementDecrementTest, INXCanIncrementAZeroValue) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -43,7 +43,7 @@ TEST_F(M6502IncrementDecrementTests, INXCanIncrementAZeroValue) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, INXCanIncrement255) {
+TEST_F(IncrementDecrementTest, INXCanIncrement255) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -65,7 +65,7 @@ TEST_F(M6502IncrementDecrementTests, INXCanIncrement255) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, INXCanIncrementANegativeValue) {
+TEST_F(IncrementDecrementTest, INXCanIncrementANegativeValue) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -88,7 +88,7 @@ TEST_F(M6502IncrementDecrementTests, INXCanIncrementANegativeValue) {
 }
 
 
-TEST_F(M6502IncrementDecrementTests, INYCanIncrementAZeroValue) {
+TEST_F(IncrementDecrementTest, INYCanIncrementAZeroValue) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -110,7 +110,7 @@ TEST_F(M6502IncrementDecrementTests, INYCanIncrementAZeroValue) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, INYCanIncrement255) {
+TEST_F(IncrementDecrementTest, INYCanIncrement255) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -132,7 +132,7 @@ TEST_F(M6502IncrementDecrementTests, INYCanIncrement255) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, INYCanIncrementANegativeValue) {
+TEST_F(IncrementDecrementTest, INYCanIncrementANegativeValue) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -155,7 +155,7 @@ TEST_F(M6502IncrementDecrementTests, INYCanIncrementANegativeValue) {
 }
 
 
-TEST_F(M6502IncrementDecrementTests, DEYCanDecementAZeroValue) {
+TEST_F(IncrementDecrementTest, DEYCanDecementAZeroValue) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -177,7 +177,7 @@ TEST_F(M6502IncrementDecrementTests, DEYCanDecementAZeroValue) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, DEYCanDecrement255) {
+TEST_F(IncrementDecrementTest, DEYCanDecrement255) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -199,7 +199,7 @@ TEST_F(M6502IncrementDecrementTests, DEYCanDecrement255) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, DEYCanDecrementANegativeValue) {
+TEST_F(IncrementDecrementTest, DEYCanDecrementANegativeValue) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -221,7 +221,7 @@ TEST_F(M6502IncrementDecrementTests, DEYCanDecrementANegativeValue) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, DEXCanDecementAZeroValue) {
+TEST_F(IncrementDecrementTest, DEXCanDecementAZeroValue) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -243,7 +243,7 @@ TEST_F(M6502IncrementDecrementTests, DEXCanDecementAZeroValue) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, DEXCanDecrement255) {
+TEST_F(IncrementDecrementTest, DEXCanDecrement255) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -265,7 +265,7 @@ TEST_F(M6502IncrementDecrementTests, DEXCanDecrement255) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, DEXCanDecrementANegativeValue) {
+TEST_F(IncrementDecrementTest, DEXCanDecrementANegativeValue) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -287,7 +287,7 @@ TEST_F(M6502IncrementDecrementTests, DEXCanDecrementANegativeValue) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, DECCanDecrementAValueInTheZeroPage) {
+TEST_F(IncrementDecrementTest, DECCanDecrementAValueInTheZeroPage) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -310,7 +310,7 @@ TEST_F(M6502IncrementDecrementTests, DECCanDecrementAValueInTheZeroPage) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, DECCanDecrementAValueInTheZeroPageX) {
+TEST_F(IncrementDecrementTest, DECCanDecrementAValueInTheZeroPageX) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -334,7 +334,7 @@ TEST_F(M6502IncrementDecrementTests, DECCanDecrementAValueInTheZeroPageX) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, DECCanDecrementAValueAbsolute) {
+TEST_F(IncrementDecrementTest, DECCanDecrementAValueAbsolute) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -358,7 +358,7 @@ TEST_F(M6502IncrementDecrementTests, DECCanDecrementAValueAbsolute) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, DECCanDecrementAValueAbsoluteX) {
+TEST_F(IncrementDecrementTest, DECCanDecrementAValueAbsoluteX) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -383,7 +383,7 @@ TEST_F(M6502IncrementDecrementTests, DECCanDecrementAValueAbsoluteX) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, INCCanIncrementAValueInTheZeroPage) {
+TEST_F(IncrementDecrementTest, INCCanIncrementAValueInTheZeroPage) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -406,7 +406,7 @@ TEST_F(M6502IncrementDecrementTests, INCCanIncrementAValueInTheZeroPage) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, INCCanIncrementAValueInTheZeroPageX) {
+TEST_F(IncrementDecrementTest, INCCanIncrementAValueInTheZeroPageX) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -430,7 +430,7 @@ TEST_F(M6502IncrementDecrementTests, INCCanIncrementAValueInTheZeroPageX) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, INCCanIncrementAValueAbsolute) {
+TEST_F(IncrementDecrementTest, INCCanIncrementAValueAbsolute) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -454,7 +454,7 @@ TEST_F(M6502IncrementDecrementTests, INCCanIncrementAValueAbsolute) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, INCCanIncrementAValueAbsoluteX) {
+TEST_F(IncrementDecrementTest, INCCanIncrementAValueAbsoluteX) {
     // given:
     using namespace m6502;
     cpu.Reset(0xFF00, mem);
@@ -479,7 +479,7 @@ TEST_F(M6502IncrementDecrementTests, INCCanIncrementAValueAbsoluteX) {
     ExpectUnaffectedFlags(CPUCopy);
 }
 
-TEST_F(M6502IncrementDecrementTests, TestLoadAProgramThatCanIncMemory) {
+TEST_F(IncrementDecrementTest, TestLoadAProgramThatCanIncMemory) {
     // given:
     using namespace m6502;
 

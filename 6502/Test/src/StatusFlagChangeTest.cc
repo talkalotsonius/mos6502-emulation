@@ -13,7 +13,7 @@ public:
 	virtual void TearDown()	{}
 };
 
-TEST_F(M6502StatusFlagChangeTests, CLCWillClearTheCarryFlag) {
+TEST_F(StatusFlagChangeTest, CLCWillClearTheCarryFlag) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -36,7 +36,7 @@ TEST_F(M6502StatusFlagChangeTests, CLCWillClearTheCarryFlag) {
 	EXPECT_EQ(cpu.Flag.N, CPUCopy.Flag.N);
 }
 
-TEST_F(M6502StatusFlagChangeTests, SECWillSetTheCarryFlag) {
+TEST_F(StatusFlagChangeTest, SECWillSetTheCarryFlag) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -59,7 +59,7 @@ TEST_F(M6502StatusFlagChangeTests, SECWillSetTheCarryFlag) {
 	EXPECT_EQ(cpu.Flag.N, CPUCopy.Flag.N);
 }
 
-TEST_F(M6502StatusFlagChangeTests, CLDWillClearTheDecimalFlag) {
+TEST_F(StatusFlagChangeTest, CLDWillClearTheDecimalFlag) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -82,7 +82,7 @@ TEST_F(M6502StatusFlagChangeTests, CLDWillClearTheDecimalFlag) {
 	EXPECT_EQ(cpu.Flag.N, CPUCopy.Flag.N);
 }
 
-TEST_F(M6502StatusFlagChangeTests, SEDWillSetTheDecimalFlag) {
+TEST_F(StatusFlagChangeTest, SEDWillSetTheDecimalFlag) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -105,7 +105,7 @@ TEST_F(M6502StatusFlagChangeTests, SEDWillSetTheDecimalFlag) {
 	EXPECT_EQ(cpu.Flag.N, CPUCopy.Flag.N);
 }
 
-TEST_F(M6502StatusFlagChangeTests, CLIWillClearTheInterruptFlag) {
+TEST_F(StatusFlagChangeTest, CLIWillClearTheInterruptFlag) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -128,7 +128,7 @@ TEST_F(M6502StatusFlagChangeTests, CLIWillClearTheInterruptFlag) {
 	EXPECT_EQ(cpu.Flag.N, CPUCopy.Flag.N);
 }
 
-TEST_F(M6502StatusFlagChangeTests, SEIWillSetTheInterruptFlag) {
+TEST_F(StatusFlagChangeTest, SEIWillSetTheInterruptFlag) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
@@ -151,7 +151,7 @@ TEST_F(M6502StatusFlagChangeTests, SEIWillSetTheInterruptFlag) {
 	EXPECT_EQ(cpu.Flag.N, CPUCopy.Flag.N);
 }
 
-TEST_F(M6502StatusFlagChangeTests, CLVWillClearTheOverflowFlag) {
+TEST_F(StatusFlagChangeTest, CLVWillClearTheOverflowFlag) {
 	// given:
 	using namespace m6502;
 	cpu.Reset(0xFF00, mem);
