@@ -178,16 +178,16 @@ struct m6502::CPU {
         return ValueFromStack;
     }
 
-  /** Process status bits */
-  static constexpr Byte
-    NegativeFlagBit         = 0b10000000,
+    /** Process status bits */
+    static constexpr Byte
+        NegativeFlagBit         = 0b10000000,
         OverflowFlagBit         = 0b01000000,
         BreakFlagBit            = 0b000010000,
         UnusedFlagBit           = 0b000100000,
         InterruptDisableFlagBit = 0b000000100,
         ZeroBit                 = 0b00000001;
 
-  /** Instruction Set */
+    /** Instruction Set */
     static constexpr Byte
     /** Op-Codes */
         // LDA = Load Accumulator
@@ -240,13 +240,13 @@ struct m6502::CPU {
         INS_PHP = 0x08, // PHP = Push Processor Status
         INS_PLP = 0x28, // PLP = Pull Processor Status
     
-    INS_JSR     = 0x20, // JSR = Jump to Subroutine
+        INS_JSR     = 0x20, // JSR = Jump to Subroutine
         INS_RTS     = 0x60, // RTS = Return from Subroutine
         INS_JMP_ABS = 0x4C, // JMP_ABS = Jump, Absolute
         INS_JMP_IND = 0x6C, // JMP_IND = Jump, Indirect 
         
 
-    /** Logical Operations */
+        /** Logical Operations */
         // AND = Logical AND
         INS_AND_IM   = 0x29,
         INS_AND_ZP   = 0x25,
@@ -282,33 +282,33 @@ struct m6502::CPU {
         INS_BIT_ABS = 0x2C,
 
 
-    /** Transfer Registers */
+        /** Transfer Registers */
         INS_TAX = 0xAA, // TAX = Transfer Accumulator to X
         INS_TAY = 0xA8, // TAY = Transfer Accumulator to Y
         INS_TXA = 0x8A, // TXA = Transfer X to Accumulator
         INS_TYA = 0x98, // TYA = Transfer Y to Accumulator
 
 
-    /** Increments, Decrements */
+        /** Increments, Decrements */
         INS_INX = 0xE8, // INX = Increment X Register
         INS_INY = 0xC8, // INY = Increment Y Register
         INS_DEY = 0x88, // DEX = Decrement X Register
         INS_DEX = 0xCA, // DEY = Decrement Y Register
 
-    // DEC = Decrement Memory
+        // DEC = Decrement Memory
         INS_DEC_ZP   = 0xC6,
         INS_DEC_ZPX  = 0xD6,
         INS_DEC_ABS  = 0xCE,
         INS_DEC_ABSX = 0xDE,
 
-    // INC = Increment Memory
+        // INC = Increment Memory
         INS_INC_ZP   = 0xE6,
         INS_INC_ZPX  = 0xF6,
         INS_INC_ABS  = 0xEE,
         INS_INC_ABSX = 0xFE,
 
 
-    /** Branches */
+        /** Branches */
         INS_BEQ = 0xF0, // BEQ = Branch if Equal
         INS_BNE = 0xD0, // BNE = Branch if Not Equal
         INS_BCS = 0xB0, // BCS = Branch if Carry Set
@@ -319,7 +319,7 @@ struct m6502::CPU {
         INS_BVS = 0x70, // BVS = Branch if Overflow Set
 
 
-    /** Status flag changes */
+        /** Status flag changes */
         INS_CLC = 0x18, // CLC = Clear Carry Flag
         INS_SEC = 0x38, // SEC = Set Carry Flag
         INS_CLD = 0xD8, // CLD = Clear Decimal Mode
@@ -329,7 +329,7 @@ struct m6502::CPU {
         INS_CLV = 0xB8, // CLV = Clear Overflow Flag
 
 
-    /** Arithmetical operations */
+        /** Arithmetical operations */
         // ADC = Add with Carry
         INS_ADC      = 0x69,
         INS_ADC_ZP   = 0x65,
@@ -340,7 +340,7 @@ struct m6502::CPU {
         INS_ADC_INDX = 0x61,
         INS_ADC_INDY = 0x71,
 
-    // SBC = Subtract with Carry
+        // SBC = Subtract with Carry
         INS_SBC      = 0xE9,
         INS_SBC_ABS  = 0xED,
         INS_SBC_ZP   = 0xE5,
@@ -351,8 +351,8 @@ struct m6502::CPU {
         INS_SBC_INDY = 0xF1,
 
         // CMP = Compare
-    /** This instruction compares the contents of the accumulator with another memory held value 
-      * and sets the zero and carry flags as appropriate. */
+        /** This instruction compares the contents of the accumulator with another memory held value 
+          * and sets the zero and carry flags as appropriate. */
         INS_CMP      = 0xC9,
         INS_CMP_ZP   = 0xC5,
         INS_CMP_ZPX  = 0xD5,
@@ -362,28 +362,28 @@ struct m6502::CPU {
         INS_CMP_INDX = 0xC1,
         INS_CMP_INDY = 0xD1,
 
-    // CPX = Compare X Register
-    /** This instruction compares the contents of the X register with another memory held value 
-      * and sets the zero and carry flags as appropriate. */
+        // CPX = Compare X Register
+        /** This instruction compares the contents of the X register with another memory held value 
+          * and sets the zero and carry flags as appropriate. */
         INS_CPX     = 0xE0,
         INS_CPX_ZP  = 0xE4,
         INS_CPX_ABS = 0xEC,
         
-    // CPY = Compare Y Register
-    INS_CPY     = 0xC0,
-    INS_CPY_ZP  = 0xC4,
-    INS_CPY_ABS = 0xCC,
+        // CPY = Compare Y Register
+        INS_CPY     = 0xC0,
+        INS_CPY_ZP  = 0xC4,
+        INS_CPY_ABS = 0xCC,
 
 
-    /** Shifts */
-    // ASL = Arithmetic Shift Left
+        /** Shifts */
+        // ASL = Arithmetic Shift Left
         INS_ASL      = 0x0A,
         INS_ASL_ZP   = 0x06,
         INS_ASL_ZPX  = 0x16,
         INS_ASL_ABS  = 0x0E,
         INS_ASL_ABSX = 0x1E,
 
-    // LSR = Logical Shift Right
+        // LSR = Logical Shift Right
         INS_LSR      = 0x4A,
         INS_LSR_ZP   = 0x46,
         INS_LSR_ZPX  = 0x56,
@@ -391,14 +391,14 @@ struct m6502::CPU {
         INS_LSR_ABSX = 0x5E,
 
         // ROL - Rotate Left
-    INS_ROL      = 0x2A,
+        INS_ROL      = 0x2A,
         INS_ROL_ZP   = 0x26,
         INS_ROL_ZPX  = 0x36,
         INS_ROL_ABS  = 0x2E,
         INS_ROL_ABSX = 0x3E,
 
         // ROR - Rotate Right
-    INS_ROR      = 0x6A,
+        INS_ROR      = 0x6A,
         INS_ROR_ZP   = 0x66,
         INS_ROR_ZPX  = 0x76,
         INS_ROR_ABS  = 0x6E,

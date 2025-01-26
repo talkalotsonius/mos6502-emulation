@@ -17,7 +17,26 @@ cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE 
 ```
 cmake --build <path-to-PROJECT_ROOT>/mos6502-emulation/build --config Debug --target all -j 12 --
 ```
+The executable of the tests will be located here:
+```
+mos6502-emulation/build/6502/Test/MOS6502Test
+```
 
+### Integrating [6502_65C02_functional_tests](https://github.com/Klaus2m5/6502_65C02_functional_tests)
+On Linux/Unix, if not already installed, get the i386 libs for libc & libstdc++ since it is a 32bit program.
+Run the following command:
+```
+./as65 -l -m -w -h0 6502_functional_test.a65
+```
+This will yield you: `6502_functional_test.bin` & `6502_functional_test.lst`
+Based on the information from the Symbols file `6502_functional_test.lst`, we obtain the information:
+```
+Wrote binary from address $000a through $ffff.
+Total size 65526 bytes.
+Program start address is at $0400 (1024).
+```
+This will be an entry hook for the test: `TEST_F(LoadPrgTest, LoadThe6502TestPrg)` under `LoadPrgTest.cc`.
+Direct to / or copy the `6502_functional_test.bin` to a desired location and modify the `fopen_s()`- function accordingly.
 
 ## Learning exercise
 Now, what did we learn from this?

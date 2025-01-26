@@ -73,8 +73,7 @@ TEST_F(LoadPrgTest, LoadThe6502TestPrg) {
 
 	// when:
 	FILE* fp;
-	fopen_s(&fp, 
-		"6502_functional_test.bin", "rb");
+	fopen_s(&fp, "6502_functional_test.bin", "rb");
 
 	fread(&mem[0x000A], 1, 65526, fp);
 	fclose(fp);
