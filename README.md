@@ -28,6 +28,9 @@ Run the following command:
 ```
 ./as65 -l -m -w -h0 6502_functional_test.a65
 ```
+Analogous options should apply to the `as65.exe` under Windows.
+Furthermore under Linux you can probe the executables architecture by `od -An -t x1 -j 4 -N 1 ./as65`.
+The Results will be either `01` for a 32-bit binary or `02` for a 64-bit binary.
 This will yield you: `6502_functional_test.bin` & `6502_functional_test.lst`
 Based on the information from the Symbols file `6502_functional_test.lst`, we obtain the information:
 ```
